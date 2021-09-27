@@ -1,16 +1,19 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 
 const Schema = mongoose.Schema;
 
 
-export const spamSchema = new Schema({
+export const ResolveSchema = new Schema({
+    resolve: {
+        type: Boolean,
+        default: false 
+    }
+})
+
+export const BlockSchema = new Schema({
     blocked: {
-        type: Boolean, 
-        default: false
-    },
-    resolved: {
-        type: Boolean, 
-        default: false
+        type: Boolean,
+        default: false 
     }
 })

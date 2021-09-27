@@ -1,3 +1,6 @@
+import { updateStatus } from "../controllers/spamControllers"
+import { updateBlock } from "../controllers/spamControllers"
+
 const routes = (app) => {
 
     app.route('/reports')
@@ -6,14 +9,10 @@ const routes = (app) => {
         })
     
     app.route('/reports/:reportsId')
-        .put((req,res) => {
-            res.send('Spam as been resolved')
-        })
+        .put(updateStatus)
     
     app.route('/reports/block/:reportsId')
-        .put((req,res) => {
-            res.send('block route is active')
-        })
+        .put(updateBlock)
         
 }
 
