@@ -1,5 +1,6 @@
 import { updateStatus } from "../controllers/spamControllers"
 import { updateBlock } from "../controllers/spamControllers"
+import { postReport } from "../controllers/spamControllers"
 
 const routes = (app) => {
 
@@ -7,6 +8,9 @@ const routes = (app) => {
         .get((req, res) => {
             res.send('GET request working')
         })
+    
+    app.route('/reports/createPost')
+        .post(postReport)
     
     app.route('/reports/:reportsId')
         .put(updateStatus)
