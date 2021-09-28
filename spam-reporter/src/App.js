@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import reports from './data/reports.json'
 import './App.css'
 
 function App() {
 
-const testData = reports.elements;
 
 useEffect(() => {
   
