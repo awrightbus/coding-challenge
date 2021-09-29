@@ -1,10 +1,8 @@
 import  mongoose  from "mongoose";
 import { ScamReportSchema} from "../models/spamModels";
-import reports from '../../data/reports.json'
 
 
 const ScamReportModel = mongoose.model('ScamReportModel', ScamReportSchema)
-const scamReportData = reports;
 // Manipulating the different routes for my schema
 
 
@@ -16,14 +14,17 @@ export const importReport = (reportList) => {
         ))          
 }
 
+
+
+
 const createReport = (reportObject) => {
-    console.log(reportObject,'report Object')
     const report = {
         id: `${reportObject.id}`,
         state: `${reportObject.state}`,
         created: `${reportObject.created}`,
         message: `${reportObject?.payload?.message}`,
-        reportType: `${reportObject?.payload?.reportType}`
+        reportType: `${reportObject?.payload?.reportType}`,
+        ticketStatus: false
         }
 
         let postNewReport = new ScamReportModel(report)
@@ -37,18 +38,14 @@ const createReport = (reportObject) => {
 }
 
 export const postReport = (req,res) => {
-    
-    createReport(req.body);
-    
-   
+    createReport(req.body); 
 }
 
-export const updateStatus = (req, res) => {
+export const updateBlock = (req, res) => { 
+    // used for handeling the resolve
+    // need to impliment a soft Delete 
     
-    // console.log(req,'request update status')
-    
-    let resolveStatus = new ScamReportModel(req.body)
-    resolveStatus.save((err, resolve) => {
+    ScamReportModel.findOneAndUpdate({id: req.params.reportsId}, req.body, {new: true, useFindAndModify: false} ,(err, resolve) => {
         if(err){
             res.send(err);
         }else {
@@ -58,19 +55,25 @@ export const updateStatus = (req, res) => {
     }) 
 }
 
-export const updateBlock = (req, res) => {
-    
-    // console.log(req,'request update status')
-    
-    let blockStatus = new ScamReportModel(req.body)
-    blockStatus.save((err, block) => {
+export const updateStatus = (req, res) => {
+    ScamReportModel.findOneAndRemove({id: req.params.reportsId},(err, block) => {
         if(err){
             res.send(err);
         }else {
-            res.json(block);
+            res.json({message: 'removal from database completed'});
             
         }
     }) 
 }
 
+export const getReports = (req, res) => {
+    ScamReportModel.find({},(err, report) => {
+        if(err){
+            res.send(err);
+        }else {
+            res.json(report);
+            
+        }
+    }) 
+}
  

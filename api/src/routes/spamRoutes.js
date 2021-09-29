@@ -1,14 +1,13 @@
 import { updateStatus } from "../controllers/spamControllers"
 import { updateBlock } from "../controllers/spamControllers"
 import { postReport } from "../controllers/spamControllers"
+import { getReports } from "../controllers/spamControllers"
 
 
 const routes = (app) => {
 
     app.route('/reports')
-        .get((req, res) => {
-            res.send('GET request working')
-        })
+        .get(getReports)
     
     //just in case i was told to do a POST route for new reports
     // app.route('/reports/createPost')

@@ -15,6 +15,7 @@ export const ScamReportSchema = new Schema({
      },
      state: {
         type : String,
+        default:'OPEN'
      },
      created: {
         type : String,
@@ -25,6 +26,10 @@ export const ScamReportSchema = new Schema({
      reportType: {
         type : String,
      },
+     resolveState: {
+         type: Boolean,
+         default: false
+     }
         
 })
 
