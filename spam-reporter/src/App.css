@@ -17,14 +17,35 @@
   max-height: 100px;
   margin:auto;
   margin-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  
 }
 
-.leftSection, .middleSection{
-  padding-right: 20px;
+.leftSection{
+  /* padding-right: 20px; */
+  min-width: 45%;
+} 
+.middleSection{
+  /* padding-right: 20px; */
+  min-width: 45%;
+}
+
+.rightSection{
+  min-width: 10%;
+}
+
+button{
+  padding: 6px;
+  text-align: center;
+  font-size: 12px;
 }
 
 .leftId{
   
+  max-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .message{
@@ -43,3 +64,4 @@
 button:first-child{
   margin-bottom: 10px;
 }
+
