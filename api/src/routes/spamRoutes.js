@@ -2,6 +2,7 @@ import { updateStatus } from "../controllers/spamControllers"
 import { updateBlock } from "../controllers/spamControllers"
 import { postReport } from "../controllers/spamControllers"
 
+
 const routes = (app) => {
 
     app.route('/reports')
@@ -9,13 +10,14 @@ const routes = (app) => {
             res.send('GET request working')
         })
     
-    app.route('/reports/createPost')
-        .post(postReport)
+    //just in case i was told to do a POST route for new reports
+    // app.route('/reports/createPost')
+    //     .post(postReport)
     
-    app.route('/reports/:reportsId')
+    app.route('/reports/:reportsId/resolve')
         .put(updateStatus)
     
-    app.route('/reports/block/:reportsId')
+    app.route('/reports/:reportsId/block')
         .put(updateBlock)
         
 }

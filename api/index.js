@@ -3,6 +3,8 @@ import routes from './src/routes/spamRoutes';
 import cors from 'cors'
 import mongoose from 'mongoose';
 require('dotenv').config()
+import scamData from '../api/data/reports.json'
+import { importReport } from './src/controllers/spamControllers';
 
 
 const app = express();
@@ -22,12 +24,15 @@ mongoose.connect(process.env.URI,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log('connected to Db'))
+.then(() => {
+  importReport(scamData);
+  console.log('connected to Db')
+})
 .catch((err) => console.log(err));
+
 
 //allocating route handling to a different file
 routes(app);
-
 
   
   app.listen(PORT, () => {

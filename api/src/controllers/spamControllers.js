@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import  mongoose  from "mongoose";
 import { ScamReportSchema} from "../models/spamModels";
 import reports from '../../data/reports.json'
 
@@ -8,39 +8,39 @@ const scamReportData = reports;
 // Manipulating the different routes for my schema
 
 
-const createReport = (id,state,created,message,reportType) => {
-    return({
-        id: `${id}`,
-        state: `${state}`,
-        created: `${created}`,
-        message: `${message}`,
-        reportType: `${reportType}`
-    })
-}
-
-const importReport = (reportList) => {
+export const importReport = (reportList) => {
 
     return(reportList.elements.map((report, i) => {
-         return createReport(`${report?.id}`, `${report?.state}`,`${report?.created}`,`${report?.payload?.message}`,`${report?.payload?.reportType}`)
+         return createReport(report)
         }
         ))          
 }
 
-export const postReport = (req,res) => {
-
-    const data = JSON.parse(JSON.stringify(importReport(scamReportData))) 
-    console.log(data,'data')
-    let postNewReport = new ScamReportModel(data)
-    console.log(new ScamReportModel(data),'new scam report model decleration')
-    console.log(postNewReport,'post new report')
-    postNewReport.save((err,newPost)=> {
-        if(err){
-            res.send(err);
-        }else {
-            res.json(newPost);
-            
+const createReport = (reportObject) => {
+    console.log(reportObject,'report Object')
+    const report = {
+        id: `${reportObject.id}`,
+        state: `${reportObject.state}`,
+        created: `${reportObject.created}`,
+        message: `${reportObject?.payload?.message}`,
+        reportType: `${reportObject?.payload?.reportType}`
         }
-    })
+
+        let postNewReport = new ScamReportModel(report)
+
+        postNewReport.save((err,newPost)=> {
+            if(err){
+                console.log(err)
+            }
+        })
+    return report
+}
+
+export const postReport = (req,res) => {
+    
+    createReport(req.body);
+    
+   
 }
 
 export const updateStatus = (req, res) => {
